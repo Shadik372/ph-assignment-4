@@ -32,21 +32,21 @@
             <div class="card bg-base-100 w-full shadow-sm">
                 <div class="card-body">
                     <p>Total</p>
-                    <p class="text-xl text-[#002C5C] font-bold">8</p>
+                    <p id="job-count" class="allJob text-xl text-[#002C5C] font-bold">8</p>
                 </div>
             </div>
 
             <div class="card bg-base-100 w-full shadow-sm">
                 <div class="card-body">
                     <p>Total</p>
-                    <p class="text-xl text-[#10B981] font-bold">8</p>
+                    <p class="interviewJob text-xl text-[#10B981] font-bold">8</p>
                 </div>
             </div>
 
             <div class="card bg-base-100 w-full shadow-sm">
                 <div class="card-body">
                     <p>Total</p>
-                    <p class="text-xl text-[#EF4444] font-bold">8</p>
+                    <p class="rejectedJob text-xl text-[#EF4444] font-bold">8</p>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
     </header>
     <section class="flex flex-row justify-between items-center pt-5">
         <h1 class="text-xl text-[#002C5C] font-bold">Available Jobs</h1>
-        <span>8 Jobs</span>
+        <span id="availableJobCount">8 Jobs</span>
     </section>
     <section id="filter-bar" class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
         <button class="filter-btn btn btn-primary px-6" id="all-filter">
@@ -71,7 +71,7 @@
     </section>
     <section>
         <div class="interview-card my-8 space-y-8">
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -82,7 +82,7 @@
                                     TechNova Labs
                                 </h2>
 
-                                <button class="ml-auto btn btn-ghost btn-sm">
+                                <button class="ml-auto btn btn-ghost btn-sm  delete-button">
                                     <img src="Trash.png" alt="">
                                 </button>
                             </div>
@@ -113,7 +113,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -121,7 +121,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">CloudSphere Inc</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Backend Developer</p>
@@ -150,7 +150,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -158,7 +158,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">NextGen Systems</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Full Stack Engineer</p>
@@ -187,7 +187,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -195,7 +195,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">PixelWorks Studio</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">UI/UX Designer</p>
@@ -224,7 +224,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -232,7 +232,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">DataBridge Corp</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Data Analyst</p>
@@ -261,7 +261,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -269,7 +269,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">SecureNet Solutions</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Cybersecurity Engineer</p>
@@ -298,7 +298,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -306,7 +306,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">InnovateX</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Product Manager</p>
@@ -335,7 +335,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -343,7 +343,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">BrightWave Digital</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Digital Marketing Specialist</p>
@@ -372,7 +372,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -380,7 +380,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">HealthSync Systems</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Health Informatics Engineer</p>
@@ -409,7 +409,7 @@
 
                 </div>
             </div>
-            <div class="card border border-gray-200 bg-base-100 w-full shadow-sm">
+            <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
                 <div class="card-body space-y-3">
 
                     <div class="flex items-start">
@@ -417,7 +417,7 @@
 
                             <div class="flex items-center gap-3">
                                 <h2 class="card-title text-[#002C5C]">FinEdge Analytics</h2>
-                                <button class="ml-auto btn btn-ghost btn-sm"><img src="Trash.png" alt=""></button>
+                                <button class="ml-auto btn btn-ghost btn-sm delete-button"><img src="Trash.png" alt=""></button>
                             </div>
 
                             <p class="text-gray-400 text-sm">Financial Data Scientist</p>
