@@ -1,5 +1,5 @@
 console.log("Connected");
-
+var currentFilter = "Available"; // default tab
 // Job Array with Objects
 
 var jobs = [
@@ -11,8 +11,9 @@ var jobs = [
     type: "Full-time",
     salary: "$90,000 - $120,000",
     statusText: "NOT APPLIED",
-    description: "Develop responsive user interfaces using modern JavaScript frameworks.",
-    status: "Available"
+    description:
+      "Develop responsive user interfaces using modern JavaScript frameworks.",
+    status: "Available",
   },
   {
     id: 2,
@@ -23,7 +24,7 @@ var jobs = [
     salary: "$70/hr",
     statusText: "NOT APPLIED",
     description: "Develop scalable APIs using Node.js and cloud services.",
-    status: "Available"
+    status: "Available",
   },
   {
     id: 3,
@@ -33,8 +34,9 @@ var jobs = [
     type: "Full-time",
     salary: "$100,000 - $135,000",
     statusText: "NOT APPLIED",
-    description: "Work across frontend and backend systems for enterprise apps.",
-    status: "Available"
+    description:
+      "Work across frontend and backend systems for enterprise apps.",
+    status: "Available",
   },
   {
     id: 4,
@@ -45,7 +47,7 @@ var jobs = [
     salary: "$60/hr",
     statusText: "IN NOT APPLIED",
     description: "Design intuitive user experiences for web and mobile apps.",
-    status: "Available"
+    status: "Available",
   },
   {
     id: 5,
@@ -55,8 +57,9 @@ var jobs = [
     type: "Full-time",
     salary: "$85,000 - $110,000",
     statusText: "NOT APPLIED",
-    description: "Analyze datasets and create dashboards for business insights.",
-    status: "Available"
+    description:
+      "Analyze datasets and create dashboards for business insights.",
+    status: "Available",
   },
   {
     id: 6,
@@ -67,7 +70,7 @@ var jobs = [
     salary: "$110,000 - $150,000",
     statusText: "NOT APPLIED",
     description: "Secure systems and monitor infrastructure against threats.",
-    status: "Available"
+    status: "Available",
   },
   {
     id: 7,
@@ -78,7 +81,7 @@ var jobs = [
     salary: "$95,000 - $125,000",
     statusText: "NOT NOT APPLIED",
     description: "Lead product development and roadmap planning.",
-    status: "Available"
+    status: "Available",
   },
   {
     id: 8,
@@ -89,20 +92,17 @@ var jobs = [
     salary: "$65,000 - $85,000",
     statusText: "NOT APPLIED",
     description: "Plan and execute digital campaigns across social platforms.",
-    status: "Available"
-  }
+    status: "Available",
+  },
 ];
 
-
-// Job Showing 
+// Job Showing
 
 function renderJobs(filter) {
-
   var container = document.querySelector(".interview-card");
   container.innerHTML = "";
 
   for (var i = 0; i < jobs.length; i++) {
-
     var job = jobs[i];
 
     if (filter && job.status !== filter) continue;
@@ -170,29 +170,30 @@ function renderJobs(filter) {
     `;
   }
 
-  updateCount(filter);
+  updateCount();
 }
 
-
-// Status 
+// Status
 
 function setStatus(id, newStatus) {
-
   for (var i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
-      jobs[i].status = newStatus;
+      // Toggle status
+      if (jobs[i].status !== newStatus) {
+        jobs[i].status = newStatus;
+      }
+
       break;
     }
   }
 
-  renderJobs();
+  // Switch tab after change
+  setActiveTab(newStatus);
 }
 
-
-//Delete Button Functionality
+//Delete
 
 function deleteJob(id) {
-
   for (var i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
       jobs.splice(i, 1);
@@ -200,85 +201,96 @@ function deleteJob(id) {
     }
   }
 
-  renderJobs();
+  renderJobs(currentFilter);
 }
 
-
-//Filters
+// filter
 
 function resetFilterButtons() {
-  document.getElementById("all-filter").style.backgroundColor = "white";
-  document.getElementById("interview-filter").style.backgroundColor = "white";
-  document.getElementById("rejected-filter").style.backgroundColor = "white";
+  var buttons = document.querySelectorAll(".filter-btn");
 
-  document.getElementById("all-filter").style.color = "black";
-  document.getElementById("interview-filter").style.color = "black";
-  document.getElementById("rejected-filter").style.color = "black";
+  buttons.forEach(function (btn) {
+    // Remove active styles
+    btn.classList.remove("bg-blue-600", "text-white");
+
+    // Restore inactive color
+    btn.classList.add("text-[#64748B]");
+  });
 }
 
+function setActiveTab(tab) {
+  currentFilter = tab;
 
-document.getElementById("all-filter").onclick = function () {
   resetFilterButtons();
 
-  this.style.backgroundColor = "#3B82F6"; 
-  this.style.color = "white";
+  var id;
+  if (tab === "Available") {
+    id = "all-filter";
+  } else {
+    id = tab.toLowerCase() + "-filter";
+  }
 
-  renderJobs("Available");
+  var btn = document.getElementById(id);
+
+  if (btn) {
+    btn.classList.remove("text-[#64748B]");
+    btn.classList.add("bg-blue-600", "text-white");
+  }
+
+  renderJobs(tab);
+}
+
+// All
+document.getElementById("all-filter").onclick = function () {
+  setActiveTab("Available");
 };
 
-
+// Interview
 document.getElementById("interview-filter").onclick = function () {
-  resetFilterButtons();
-
-  this.style.backgroundColor = "#10B981"; 
-  this.style.color = "white";
-
-  renderJobs("Interview");
+  setActiveTab("Interview");
 };
 
 // Rejected
 document.getElementById("rejected-filter").onclick = function () {
-  resetFilterButtons();
-
-  this.style.backgroundColor = "#EF4444"; 
-  this.style.color = "white";
-
-  renderJobs("Rejected");
+  setActiveTab("Rejected");
 };
 
-//Counter
+// count
 
-function updateCount(filter) {
-
+function updateCount() {
   var total = jobs.length;
   var interview = 0;
   var rejected = 0;
+  var available = 0;
 
   for (var i = 0; i < jobs.length; i++) {
-
-    if (jobs[i].status === "Interview") {
-      interview++;
-    }
-
-    if (jobs[i].status === "Rejected") {
-      rejected++;
-    }
+    if (jobs[i].status === "Interview") interview++;
+    else if (jobs[i].status === "Rejected") rejected++;
+    else available++;
   }
 
   var totalEl = document.getElementById("job-count");
   var interviewEl = document.getElementById("interview-count");
   var rejectedEl = document.getElementById("rejected-count");
-  var available = document.getElementById("availableJobCount");
+  var rightCount = document.getElementById("availableJobCount");
 
   if (totalEl) totalEl.innerText = total;
   if (interviewEl) interviewEl.innerText = interview;
   if (rejectedEl) rejectedEl.innerText = rejected;
 
-  if (available) {
-    available.innerText = (total - interview - rejected) + " Jobs";
+  if (rightCount) {
+    if (currentFilter === "Available") {
+      rightCount.innerText = available + " Jobs";
+    }
+
+    if (currentFilter === "Interview") {
+      rightCount.innerText = interview + " Jobs";
+    }
+
+    if (currentFilter === "Rejected") {
+      rightCount.innerText = rejected + " Jobs";
+    }
   }
 }
 
-
-
-renderJobs("Available");
+setActiveTab("Available");
