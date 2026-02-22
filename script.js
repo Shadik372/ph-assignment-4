@@ -1,36 +1,257 @@
 console.log("Connected");
-document
-  .getElementById("interview-filter")
-  .addEventListener("click", function () {
-    window.location.href = "interview.html";
-  });
-document
-  .getElementById("rejected-filter")
-  .addEventListener("click", function () {
-    window.location.href = "rejected.html";
-  });
-document.getElementById("all-filter").addEventListener("click", function () {
-  window.location.href = "index.html";
-});
 
-// Showing Job Count and Update
-function updateCount() {
-  const cards = document.getElementsByClassName("job-card");
-  const count = cards.length;
+// Job Array with Objects
 
-  document.getElementById("job-count").innerText = count;
-  document.getElementById("availableJobCount").innerText = count + " Jobs";
+var jobs = [
+  {
+    id: 1,
+    company: "TechNova Labs",
+    position: "Frontend Engineer",
+    location: "Hybrid",
+    type: "Full-time",
+    salary: "$90,000 - $120,000",
+    statusText: "NOT APPLIED",
+    description: "Develop responsive user interfaces using modern JavaScript frameworks.",
+    status: "Available"
+  },
+  {
+    id: 2,
+    company: "CloudSphere Inc",
+    position: "Backend Developer",
+    location: "Remote",
+    type: "Contract",
+    salary: "$70/hr",
+    statusText: "NOT APPLIED",
+    description: "Develop scalable APIs using Node.js and cloud services.",
+    status: "Available"
+  },
+  {
+    id: 3,
+    company: "NextGen Systems",
+    position: "Full Stack Engineer",
+    location: "Onsite",
+    type: "Full-time",
+    salary: "$100,000 - $135,000",
+    statusText: "NOT APPLIED",
+    description: "Work across frontend and backend systems for enterprise apps.",
+    status: "Available"
+  },
+  {
+    id: 4,
+    company: "PixelWorks Studio",
+    position: "UI/UX Designer",
+    location: "Remote",
+    type: "Freelance",
+    salary: "$60/hr",
+    statusText: "IN NOT APPLIED",
+    description: "Design intuitive user experiences for web and mobile apps.",
+    status: "Available"
+  },
+  {
+    id: 5,
+    company: "DataBridge Corp",
+    position: "Data Analyst",
+    location: "Hybrid",
+    type: "Full-time",
+    salary: "$85,000 - $110,000",
+    statusText: "NOT APPLIED",
+    description: "Analyze datasets and create dashboards for business insights.",
+    status: "Available"
+  },
+  {
+    id: 6,
+    company: "SecureNet Solutions",
+    position: "Cybersecurity Engineer",
+    location: "Remote",
+    type: "Full-time",
+    salary: "$110,000 - $150,000",
+    statusText: "NOT APPLIED",
+    description: "Secure systems and monitor infrastructure against threats.",
+    status: "Available"
+  },
+  {
+    id: 7,
+    company: "InnovateX",
+    position: "Product Manager",
+    location: "Onsite",
+    type: "Full-time",
+    salary: "$95,000 - $125,000",
+    statusText: "NOT NOT APPLIED",
+    description: "Lead product development and roadmap planning.",
+    status: "Available"
+  },
+  {
+    id: 8,
+    company: "BrightWave Digital",
+    position: "Marketing Specialist",
+    location: "Remote",
+    type: "Full-time",
+    salary: "$65,000 - $85,000",
+    statusText: "NOT APPLIED",
+    description: "Plan and execute digital campaigns across social platforms.",
+    status: "Available"
+  }
+];
+
+
+// Job Showing 
+
+function renderJobs(filter) {
+
+  var container = document.querySelector(".interview-card");
+  container.innerHTML = "";
+
+  for (var i = 0; i < jobs.length; i++) {
+
+    var job = jobs[i];
+
+    if (filter && job.status !== filter) continue;
+
+    container.innerHTML += `
+      <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
+
+        <div class="card-body space-y-3">
+
+          <div class="flex items-start">
+            <div class="w-full">
+
+              <div class="flex items-center gap-3">
+
+                <h2 class="card-title text-[#002C5C]">
+                  ${job.company}
+                </h2>
+
+                <button
+                  class="ml-auto btn btn-ghost btn-sm delete-button"
+                  onclick="deleteJob(${job.id})">
+
+                  <img src="Trash.png" alt="">
+                </button>
+
+              </div>
+
+              <p class="text-gray-400 text-sm">${job.position}</p>
+
+              <p class="text-gray-400 text-sm mt-1">
+                ${job.location} • ${job.type} • ${job.salary}
+              </p>
+
+            </div>
+          </div>
+
+          <div>
+            <span class="bg-[#EEF4FF] rounded-sm text-xs text-blue-600 px-3 py-1">
+              ${job.statusText}
+            </span>
+          </div>
+
+          <p class="text-sm text-gray-600">
+            ${job.description}
+          </p>
+
+          <div class="flex gap-3 justify-start">
+
+            <button
+              class="btn btn-outline btn-success btn-sm"
+              onclick="setStatus(${job.id}, 'Interview')">
+              Interview
+            </button>
+
+            <button
+              class="btn btn-outline btn-error btn-sm"
+              onclick="setStatus(${job.id}, 'Rejected')">
+              Rejected
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+  }
+
+  updateCount(filter);
 }
 
-updateCount();
+
+// Status 
+
+function setStatus(id, newStatus) {
+
+  for (var i = 0; i < jobs.length; i++) {
+    if (jobs[i].id === id) {
+      jobs[i].status = newStatus;
+      break;
+    }
+  }
+
+  renderJobs();
+}
+
 
 //Delete Button Functionality
-const deleteButtons = document.querySelectorAll(".delete-button");
 
-deleteButtons.forEach(function(button) {
-  button.addEventListener("click", function() {
-    const card = button.closest(".job-card");
-    card.remove();
-    updateCount();
-  });
-});
+function deleteJob(id) {
+
+  for (var i = 0; i < jobs.length; i++) {
+    if (jobs[i].id === id) {
+      jobs.splice(i, 1);
+      break;
+    }
+  }
+
+  renderJobs();
+}
+
+
+//Filters
+
+document.getElementById("all-filter").onclick = function () {
+  renderJobs("Available");
+};
+
+document.getElementById("interview-filter").onclick = function () {
+  renderJobs("Interview");
+};
+
+document.getElementById("rejected-filter").onclick = function () {
+  renderJobs("Rejected");
+};
+
+
+//Counter
+
+function updateCount(filter) {
+
+  var total = jobs.length;
+  var interview = 0;
+  var rejected = 0;
+
+  for (var i = 0; i < jobs.length; i++) {
+
+    if (jobs[i].status === "Interview") {
+      interview++;
+    }
+
+    if (jobs[i].status === "Rejected") {
+      rejected++;
+    }
+  }
+
+  var totalEl = document.getElementById("job-count");
+  var interviewEl = document.getElementById("interview-count");
+  var rejectedEl = document.getElementById("rejected-count");
+  var available = document.getElementById("availableJobCount");
+
+  if (totalEl) totalEl.innerText = total;
+  if (interviewEl) interviewEl.innerText = interview;
+  if (rejectedEl) rejectedEl.innerText = rejected;
+
+  if (available) {
+    available.innerText = (total - interview - rejected) + " Jobs";
+  }
+}
+
+
+
+renderJobs("Available");
