@@ -206,18 +206,45 @@ function deleteJob(id) {
 
 //Filters
 
+function resetFilterButtons() {
+  document.getElementById("all-filter").style.backgroundColor = "white";
+  document.getElementById("interview-filter").style.backgroundColor = "white";
+  document.getElementById("rejected-filter").style.backgroundColor = "white";
+
+  document.getElementById("all-filter").style.color = "black";
+  document.getElementById("interview-filter").style.color = "black";
+  document.getElementById("rejected-filter").style.color = "black";
+}
+
+
 document.getElementById("all-filter").onclick = function () {
+  resetFilterButtons();
+
+  this.style.backgroundColor = "#3B82F6"; 
+  this.style.color = "white";
+
   renderJobs("Available");
 };
 
+
 document.getElementById("interview-filter").onclick = function () {
+  resetFilterButtons();
+
+  this.style.backgroundColor = "#10B981"; 
+  this.style.color = "white";
+
   renderJobs("Interview");
 };
 
+// Rejected
 document.getElementById("rejected-filter").onclick = function () {
+  resetFilterButtons();
+
+  this.style.backgroundColor = "#EF4444"; 
+  this.style.color = "white";
+
   renderJobs("Rejected");
 };
-
 
 //Counter
 
