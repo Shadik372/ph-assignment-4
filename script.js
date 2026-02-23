@@ -1,8 +1,8 @@
 console.log("Connected");
-var currentFilter = "Available"; // default tab
+let currentFilter = "Available"; // default tab
 // Job Array with Objects
 
-var jobs = [
+let jobs = [
   {
     id: 1,
     company: "TechNova Labs",
@@ -99,19 +99,17 @@ var jobs = [
 // Job Showing
 
 function renderJobs(filter) {
-  var container = document.querySelector(".interview-card");
+  let container = document.querySelector(".interview-card");
   container.innerHTML = "";
-  
-  // Track how many jobs match the current filter
-  var matchCount = 0; 
 
-  for (var i = 0; i < jobs.length; i++) {
-    var job = jobs[i];
+  let matchCount = 0;
+
+  for (let i = 0; i < jobs.length; i++) {
+    let job = jobs[i];
 
     if (filter && job.status !== filter) continue;
-    
-    // Increment the count if the job matches the filter
-    matchCount++; 
+
+    matchCount++;
 
     container.innerHTML += `
       <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
@@ -176,7 +174,7 @@ function renderJobs(filter) {
     `;
   }
 
-  // If no jobs were found for this tab, show the empty state
+  // If no jobs were found 
   if (matchCount === 0) {
     container.innerHTML = `
       <div class="card noJobs shadow-sm">
@@ -195,25 +193,31 @@ function renderJobs(filter) {
 // Status
 
 function setStatus(id, newStatus) {
+
   for (var i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
-      // Toggle status
-      if (jobs[i].status !== newStatus) {
-        jobs[i].status = newStatus;
+
+      jobs[i].status = newStatus;
+
+      // Update the label text
+      if (newStatus === "Interview") {
+        jobs[i].statusText = "INTERVIEW";
+      } 
+      else if (newStatus === "Rejected") {
+        jobs[i].statusText = "REJECTED";
       }
 
       break;
     }
   }
 
-  // Switch tab after change
-  setActiveTab(newStatus);
+  renderJobs();
 }
 
 //Delete
 
 function deleteJob(id) {
-  for (var i = 0; i < jobs.length; i++) {
+  for (let i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
       jobs.splice(i, 1);
       break;
@@ -226,13 +230,11 @@ function deleteJob(id) {
 // filter
 
 function resetFilterButtons() {
-  var buttons = document.querySelectorAll(".filter-btn");
+  let buttons = document.querySelectorAll(".filter-btn");
 
   buttons.forEach(function (btn) {
-    // Remove active styles
     btn.classList.remove("bg-blue-600", "text-white");
 
-    // Restore inactive color
     btn.classList.add("text-[#64748B]");
   });
 }
@@ -242,14 +244,14 @@ function setActiveTab(tab) {
 
   resetFilterButtons();
 
-  var id;
+  let id;
   if (tab === "Available") {
     id = "all-filter";
   } else {
     id = tab.toLowerCase() + "-filter";
   }
 
-  var btn = document.getElementById(id);
+  let btn = document.getElementById(id);
 
   if (btn) {
     btn.classList.remove("text-[#64748B]");
@@ -277,21 +279,21 @@ document.getElementById("rejected-filter").onclick = function () {
 // count
 
 function updateCount() {
-  var total = jobs.length;
-  var interview = 0;
-  var rejected = 0;
-  var available = 0;
+  let total = jobs.length;
+  let interview = 0;
+  let rejected = 0;
+  let available = 0;
 
-  for (var i = 0; i < jobs.length; i++) {
+  for (let i = 0; i < jobs.length; i++) {
     if (jobs[i].status === "Interview") interview++;
     else if (jobs[i].status === "Rejected") rejected++;
     else available++;
   }
 
-  var totalEl = document.getElementById("job-count");
-  var interviewEl = document.getElementById("interview-count");
-  var rejectedEl = document.getElementById("rejected-count");
-  var rightCount = document.getElementById("availableJobCount");
+  let totalEl = document.getElementById("job-count");
+  let interviewEl = document.getElementById("interview-count");
+  let rejectedEl = document.getElementById("rejected-count");
+  let rightCount = document.getElementById("availableJobCount");
 
   if (totalEl) totalEl.innerText = total;
   if (interviewEl) interviewEl.innerText = interview;
