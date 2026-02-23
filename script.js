@@ -45,7 +45,7 @@ var jobs = [
     location: "Remote",
     type: "Freelance",
     salary: "$60/hr",
-    statusText: "IN NOT APPLIED",
+    statusText: "NOT APPLIED",
     description: "Design intuitive user experiences for web and mobile apps.",
     status: "Available",
   },
@@ -79,7 +79,7 @@ var jobs = [
     location: "Onsite",
     type: "Full-time",
     salary: "$95,000 - $125,000",
-    statusText: "NOT NOT APPLIED",
+    statusText: "NOT APPLIED",
     description: "Lead product development and roadmap planning.",
     status: "Available",
   },
@@ -101,11 +101,17 @@ var jobs = [
 function renderJobs(filter) {
   var container = document.querySelector(".interview-card");
   container.innerHTML = "";
+  
+  // Track how many jobs match the current filter
+  var matchCount = 0; 
 
   for (var i = 0; i < jobs.length; i++) {
     var job = jobs[i];
 
     if (filter && job.status !== filter) continue;
+    
+    // Increment the count if the job matches the filter
+    matchCount++; 
 
     container.innerHTML += `
       <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
@@ -165,6 +171,19 @@ function renderJobs(filter) {
 
           </div>
 
+        </div>
+      </div>
+    `;
+  }
+
+  // If no jobs were found for this tab, show the empty state
+  if (matchCount === 0) {
+    container.innerHTML = `
+      <div class="card noJobs shadow-sm">
+        <div class="flex flex-col justify-center items-center p-[40px] mt-4">
+          <img src="jobs.png" alt="" />
+          <p class="text-2xl font-semibold text-[#002C5C]">No jobs available</p>
+          <p>Check back soon for new job opportunities</p>
         </div>
       </div>
     `;
