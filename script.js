@@ -174,7 +174,7 @@ function renderJobs(filter) {
     `;
   }
 
-  // If no jobs were found 
+  // If no jobs were found
   if (matchCount === 0) {
     container.innerHTML = `
       <div class="card noJobs shadow-sm">
@@ -193,17 +193,13 @@ function renderJobs(filter) {
 // Status
 
 function setStatus(id, newStatus) {
-
   for (var i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
-
       jobs[i].status = newStatus;
 
-      // Update the label text
       if (newStatus === "Interview") {
         jobs[i].statusText = "INTERVIEW";
-      } 
-      else if (newStatus === "Rejected") {
+      } else if (newStatus === "Rejected") {
         jobs[i].statusText = "REJECTED";
       }
 
@@ -215,7 +211,6 @@ function setStatus(id, newStatus) {
 }
 
 function getStatusClass(status) {
-
   if (status === "Interview") {
     return "bg-green-200 text-xs rounded-sm text-green-600 border-2 p-1";
   }
@@ -230,6 +225,7 @@ function getStatusClass(status) {
 //Delete
 
 function deleteJob(id) {
+
   for (let i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
       jobs.splice(i, 1);
@@ -237,9 +233,13 @@ function deleteJob(id) {
     }
   }
 
-  renderJobs(currentFilter);
+  if (currentFilter === "All") {
+    renderJobs();
+  } 
+  else {
+    renderJobs(currentFilter);
+  }
 }
-
 // filter
 
 function resetFilterButtons() {
@@ -258,7 +258,8 @@ function setActiveTab(tab) {
   resetFilterButtons();
 
   let id;
-  if (tab === "Available") {
+
+  if (tab === "All") {
     id = "all-filter";
   } else {
     id = tab.toLowerCase() + "-filter";
@@ -271,20 +272,21 @@ function setActiveTab(tab) {
     btn.classList.add("bg-blue-600", "text-white");
   }
 
-  renderJobs(tab);
+  if (tab === "All") {
+    renderJobs();
+  } else {
+    renderJobs(tab);
+  }
 }
 
-// All
 document.getElementById("all-filter").onclick = function () {
-  setActiveTab("Available");
+  setActiveTab("All");
 };
 
-// Interview
 document.getElementById("interview-filter").onclick = function () {
   setActiveTab("Interview");
 };
 
-// Rejected
 document.getElementById("rejected-filter").onclick = function () {
   setActiveTab("Rejected");
 };
@@ -324,7 +326,11 @@ function updateCount() {
     if (currentFilter === "Rejected") {
       rightCount.innerText = rejected + " Jobs";
     }
+
+    if (currentFilter === "All") {
+      rightCount.innerText = total + " Jobs";
+    }
   }
 }
 
-setActiveTab("Available");
+setActiveTab("All");
