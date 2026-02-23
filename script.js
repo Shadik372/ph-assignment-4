@@ -112,8 +112,7 @@ function renderJobs(filter) {
     matchCount++;
 
     container.innerHTML += `
-      <div class="card job-card border border-gray-200 bg-base-100 w-full shadow-sm">
-
+      <div class="card job-card bg-base-100 w-full shadow-sm border-l-4 ${getCardBorder(job.status)} hover:ring-1 hover:ring-blue-500 transition-shadow duration-300 cursor-pointer">
         <div class="card-body space-y-3">
 
           <div class="flex items-start">
@@ -222,10 +221,21 @@ function getStatusClass(status) {
   return "bg-[#EEF4FF]  text-xs rounded-sm text-blue-600 border-2 p-1";
 }
 
+function getCardBorder(status) {
+  if (status === "Interview") {
+    return "border-green-500";
+  }
+
+  if (status === "Rejected") {
+    return "border-red-500";
+  }
+
+  return "border-none";
+}
+
 //Delete
 
 function deleteJob(id) {
-
   for (let i = 0; i < jobs.length; i++) {
     if (jobs[i].id === id) {
       jobs.splice(i, 1);
@@ -235,8 +245,7 @@ function deleteJob(id) {
 
   if (currentFilter === "All") {
     renderJobs();
-  } 
-  else {
+  } else {
     renderJobs(currentFilter);
   }
 }
