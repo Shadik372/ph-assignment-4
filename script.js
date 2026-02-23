@@ -152,7 +152,7 @@ function renderJobs(filter) {
             ${job.description}
           </p>
 
-          <div class="flex gap-3 justify-start">
+          <div class="flex flex-col w-auto gap-3 justify-start sm:flex-row">
 
             <button
               class="btn btn-outline btn-success btn-sm"
