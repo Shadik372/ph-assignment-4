@@ -144,7 +144,7 @@ function renderJobs(filter) {
           </div>
 
           <div>
-            <span class="bg-[#EEF4FF] rounded-sm text-xs text-blue-600 px-3 py-1">
+            <span class="${getStatusClass(job.status)} text-xs rounded-sm border-2 p-1">
               ${job.statusText}
             </span>
           </div>
@@ -212,6 +212,19 @@ function setStatus(id, newStatus) {
   }
 
   renderJobs();
+}
+
+function getStatusClass(status) {
+
+  if (status === "Interview") {
+    return "bg-green-200 text-xs rounded-sm text-green-600 border-2 p-1";
+  }
+
+  if (status === "Rejected") {
+    return "bg-red-200 text-xs rounded-sm text-red-600 border-2 p-1";
+  }
+
+  return "bg-[#EEF4FF]  text-xs rounded-sm text-blue-600 border-2 p-1";
 }
 
 //Delete
