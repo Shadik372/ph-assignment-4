@@ -26,3 +26,9 @@ When an event happens on an element, it first runs there, then moves up to its p
 ## Answer to the Question No. 4
 
 Event delegation means adding one event listener to a parent element instead of adding many listeners to each child element. It is useful because it makes code simpler, and easier to understand.
+
+## Answer to the Question No. 5
+We use stopPropagation() to stop the event from moving upward to parent elements.
+
+And, stop the browser’s default action for an event, we use preventDefault()
+
