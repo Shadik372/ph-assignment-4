@@ -19,3 +19,10 @@ text.innerText = "Hello this is Farhan";
 then insert into the body<br>
 document.body.appendChild(text);
 
+## Answer to the Question No. 3
+
+When an event happens on an element, it first runs there, then moves up to its parent, then to parent's parent, and continues to go upward until it reaches top of the document
+
+## Answer to the Question No. 4
+
+Event delegation means adding one event listener to a parent element instead of adding many listeners to each child element. It is useful because it makes code simpler, and easier to understand.
